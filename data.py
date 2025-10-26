@@ -3,57 +3,40 @@ from entry import Entry
 class Data:
     def __init__(self):
         """
-        Contains the overall details from the data, frequency relates to unique members of
-        each of the categories.
+        Contains the overall details from the data.
+        Each dictionary stores frequencies of categories.
         """
         self.data = {}
-        self.inspection_type = {}
-        self.nysdoh = {}
-        self.description = {}
-        self.inspection_type = {}
-    
-    def insert_inspection_type(self, type):
-        """
-        adds new inspection type to dictionary and updates frequency
-        """
-        if type not in self.inspection_type:
-            self.inspection_type[type] = 0
-        self.inspection_type[type] += 1
+        self.inspection_type_freq = {}
+        self.nysdoh_freq = {}
+        self.description_freq = {}
 
-    def insert_nysdoh(self, title):
+    def insert_inspection_type(self, inspection_type):
         """
-        inserts new nysdoh data to dictionary and updates frequency
+        Adds or updates the frequency of an inspection type.
         """
-        if title not in self.nysdoh:
-            self.nysdoh[type] = 0
-        self.nysdoh[type] += 1
+        self.inspection_type_freq[inspection_type] = self.inspection_type_freq.get(inspection_type, 0) + 1
+
+    def insert_nysdoh(self, nysdoh_code):
+        """
+        Adds or updates the frequency of an NYSDOH code.
+        """
+        self.nysdoh_freq[nysdoh_code] = self.nysdoh_freq.get(nysdoh_code, 0) + 1
 
     def insert_description(self, desc):
         """
-        inserts new description to dictionary and updates frequency
+        Adds or updates the frequency of a description.
         """
-        if desc not in self.description:
-            self.description[desc] = 0
-        self.description[desc] += 1
-
-    def insert_inspection_type(self, type):
-        """
-        inserts new inspection type to the dictionary and updates the frequency
-        """
-        if type not in self.inspection_type:
-            self.inspection_type[type] = 0
-        self.insert_description[type] += 1
+        self.description_freq[desc] = self.description_freq.get(desc, 0) + 1
 
     def process_new_entry(self, entry):
         """
-        completes the updating process for a new entry object in dataset
+        Completes the updating process for a new Entry object.
         """
-        #adding in new entry by its id
+        # Add the entry itself
         self.data[entry.id] = entry
 
-        #updating analysis metrics
-        self.insert_inspection_type(self, entry.inspection_type)
-        self.insert_nysdoh(self, entry.nysdoh)
-        self.insert_description(self, entry.description)
-        self.insert_inspection_type(self, entry.inspection_type)
-
+        # Update analysis metrics
+        self.insert_inspection_type(entry.inspection_type)
+        self.insert_nysdoh(entry.nysdoh)
+        self.insert_description(entry.description)
