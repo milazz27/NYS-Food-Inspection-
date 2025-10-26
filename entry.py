@@ -1,11 +1,10 @@
-
-
 class Entry:
     """
     Each object represent a single row of data; used to aid in data cleaning
     de-duplicating.
     """
-    def __init__(self, row):
+    def __init__(self, row, id):
+        self.id = id
         self.facility_name = row[0]
         self.address = row[1]
         self.last_inspected = row[2]
