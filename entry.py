@@ -3,12 +3,13 @@ class Entry:
     Each object represent a single row of data; used to aid in data cleaning
     de-duplicating.
     """
-    def __init__(self, row, id):
+    def __init__(self, row, id, violation, code):
         self.id = id
         self.facility_name = row.get('FACILITY', '')
         self.address = row.get('ADDRESS', '')
         self.last_inspected = row.get('LAST INSPECTED', '')
-        self.violations = row.get('VIOLATIONS', '')
+        self.violation_code = code
+        self.violation = violation
         self.num_critical_violations = row.get('TOTAL # CRITICAL VIOLATIONS', '')
         self.num_not_corrected = row.get('TOTAL #CRIT.  NOT CORRECTED ', '')
         self.num_non_critical_violations = row.get('TOTAL # NONCRITICAL VIOLATIONS', '')
