@@ -10,6 +10,7 @@ class Data:
         self.inspection_type_freq = {}
         self.nysdoh_freq = {}
         self.description_freq = {}
+        self.violation_code_freq = {}
 
     def insert_inspection_type(self, inspection_type):
         """
@@ -28,6 +29,9 @@ class Data:
         Adds or updates the frequency of a description.
         """
         self.description_freq[desc] = self.description_freq.get(desc, 0) + 1
+    
+    def insert_code(self, code):
+        self.violation_code_freq[code] = self.violation_code_freq.get(code, 0) + 1
 
     def process_new_entry(self, entry):
         """
@@ -40,3 +44,4 @@ class Data:
         self.insert_inspection_type(entry.inspection_type)
         self.insert_nysdoh(entry.nysdoh)
         self.insert_description(entry.description)
+        self.insert_code(entry.violation_code)
