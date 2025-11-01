@@ -37,7 +37,7 @@ def read_from_file(filename, data):
 
 def main():
     data = Data()
-    read_from_file("rawData.csv", data)
+    read_from_file("../Data/rawData.csv", data)
     print("done")
 
 if __name__ == "__main__":
