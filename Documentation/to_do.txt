@@ -1,0 +1,6 @@
+https://nysacho.org/directory/ --> link to info on each health department contact info, need to extract
+                                info to add to health departments relation
+
+need to find documentation on health codes for violations relations 
+(Link with info here: https://regs.health.ny.gov/content/subpart-14-1-food-service-establishments
+needs to be crawled or manually handled)

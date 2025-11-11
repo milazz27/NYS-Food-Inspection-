@@ -17,11 +17,11 @@ class Entry:
         else:
             self.violation_count = 0
         #not corrected count
-        num_not_corrected = row.get('TOTAL #CRIT.  NOT CORRECTED ', '').strip()
-        if num_not_corrected != '':
-            self.num_not_corrected = int(num_not_corrected)
+        num_crit_not_corrected = row.get('TOTAL #CRIT.  NOT CORRECTED ', '').strip()
+        if num_crit_not_corrected != '':
+            self.num_crit_not_corrected = int(num_crit_not_corrected)
         else:
-            self.num_not_corrected = 0
+            self.num_crit_not_corrected = 0
         #non-critical count
         num_non_critical = row.get('TOTAL # NONCRITICAL VIOLATIONS', '').strip()
         if num_non_critical != '':
