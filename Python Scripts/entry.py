@@ -10,9 +10,24 @@ class Entry:
         self.last_inspected = row.get('LAST INSPECTED', '').strip()
         self.violation_code = code
         self.violation = violation
-        self.num_critical_violations = int(row.get('TOTAL # CRITICAL VIOLATIONS', '').strip())
-        self.num_not_corrected = int(row.get('TOTAL #CRIT.  NOT CORRECTED ', '').strip())
-        self.num_non_critical_violations = int(row.get('TOTAL # NONCRITICAL VIOLATIONS', '').strip())
+        #violation count
+        violation_count = row.get('TOTAL # CRITICAL VIOLATIONS', '').strip()
+        if violation_count != '':
+            self.violation_count = int(violation_count)
+        else:
+            self.violation_count = 0
+        #not corrected count
+        num_not_corrected = row.get('TOTAL #CRIT.  NOT CORRECTED ', '').strip()
+        if num_not_corrected != '':
+            self.num_not_corrected = int(num_not_corrected)
+        else:
+            self.num_not_corrected = 0
+        #non-critical count
+        num_non_critical = row.get('TOTAL # NONCRITICAL VIOLATIONS', '').strip()
+        if num_non_critical != '':
+            self.num_non_critical = int(num_non_critical)
+        else:
+            self.num_non_critical = 0
         self.description = row.get('DESCRIPTION', '').strip()
         self.local_health_department = row.get(' LOCAL HEALTH DEPARTMENT', '').strip()
         self.county = row.get('COUNTY', '').strip()
@@ -23,7 +38,8 @@ class Entry:
         self.municipality = row.get('MUNICIPALITY', '').strip()
         self.operation_name = row.get('OPERATION NAME', '').strip()
         self.permit_expiration_date = row.get('PERMIT EXPIRATION DATE', '').strip()
-        self.business_name = row.get('PERMITTED  (D/B/A)', '').strip()
+        self.permitted = row.get('PERMITTED  (D/B/A)', '').strip()
+        self.business = row.get('OPERATION NAME', '').strip()
         self.corp_name = row.get('PERMITTED  CORP. NAME', '').strip()
         self.operator_last_name = row.get('PERM. OPERATOR LAST NAME', '').strip()
         self.operator_first_name = row.get('PERM. OPERATOR FIRST NAME', '').strip()
