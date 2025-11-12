@@ -1,4 +1,6 @@
 import psycopg2
+import csv
+
 
 ##connect to the database
 conn = psycopg2.connect(database = "food_safety",
@@ -8,6 +10,11 @@ conn = psycopg2.connect(database = "food_safety",
 conn.autocommit = True
 cursor = conn.cursor()
 
+clear_codes = '''DROP TABLE IF EXISTS violation_codes;'''
+clear_depts = '''DROP TABLE IF EXISTS health_depts;'''
+
+
+
 setup_violation_code = '''
                         CREATE TABLE violation_codes(
                             code VARCHAR(3) PRIMARY KEY,
@@ -16,12 +23,19 @@ setup_violation_code = '''
                             priority TEXT);
                         '''
 
-grab_code_data = '''
-                        COPY violation_codes(code, description, category, priority)
-                        FROM 'code_data.csv'
-                        DELIMITER ','
-                        CSV HEADER;
-                '''
+#loading code data into db
+cursor.execute(clear_codes)
+cursor.execute(setup_violation_code)
+
+with open('../Data/codes_data.csv', 'r') as code_file:
+    reader = csv.reader(code_file)
+    next(reader)
+    for row in reader:
+        cursor.execute(
+            '''
+            INSERT INTO violation_codes VALUES(row);
+            ''')
+    conn.commit()
 
 setup_health_depts = '''
                         CREATE TABLE health_depts(
@@ -39,10 +53,11 @@ grab_dept_data = '''
                 '''
 
 #loading code data into db
+cursor.execute(clear_codes)
 cursor.execute(setup_violation_code)
-cursor.execute(grab_code_data)
 
 #loading dept data into db
+cursor.execute(clear_depts)
 cursor.execute(setup_health_depts)
 cursor.execute(grab_dept_data)
 
