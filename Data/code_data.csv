@@ -40,3 +40,27 @@ code,description,category,critical
 "8E","Accurate thermometers not available or used to evaluate refrigerated or heated storage temperatures","FOOD NOT PROTECTED IN GENERAL",noncritical
 "8F","Improper thawing procedures used","FOOD NOT PROTECTED IN GENERAL",noncritical
 "8G","Raw foods not properly washed prior to serving","FOOD NOT PROTECTED IN GENERAL",noncritical
+"9A","Inadequate personal cleanliness","POOR HYGIENE AND ACTIVITIES OF FOOD WORKERS",noncritical
+"9B","Tobacco is used: eating, drinking in food preparation, dishwashing, food storage areas","POOR HYGIENE AND ACTIVITIES OF FOOD WORKERS",noncritical
+"9C","Hair is improperly restrained","POOR HYGIENE AND ACTIVITIES OF FOOD WORKERS",noncritical
+"9D","Dressing rooms dirty, not provided, improperly located","POOR HYGIENE AND ACTIVITIES OF FOOD WORKERS",noncritical
+"10A","Food (ice) contact surfaces are improperly designed, constructed, installed, located (cracks, open seams, pitted surfaces, tin cans reused, uncleanable or corroded food contact surfaces)","POOR SANITARY DESIGN, CONSTRUCTION, INSTALLATION OF EQUIPMENT AND UTENSILS",noncritical
+"10B","Non-food contact surfaces and equipment are improperly designed, constructed, installed, maintained (equipment not readily accessible for cleaning, surfaces not smooth finish)","POOR SANITARY DESIGN, CONSTRUCTION, INSTALLATION OF EQUIPMENT AND UTENSILS",noncritical
+"11A","Manual facilities inadequate, technique incorrect: mechanical facilities not operated in accordance with manufacturer's instructions","IMPROPER CLEANING, WASHING AND SANITIZING OF EQUIPMENT AND UTENSILS",noncritical
+"11B","Wiping clothes dirty, not stored properly in sanitizing solutions","IMPROPER CLEANING, WASHING AND SANITIZING OF EQUIPMENT AND UTENSILS",noncritical
+"11C","Food contact surfaces not washed, rinsed and sanitized after each use and following any time of operations when contamination may have occurred","IMPROPER CLEANING, WASHING AND SANITIZING OF EQUIPMENT AND UTENSILS",noncritical
+"11D","Non-food contact surfaces of equipment not clean","IMPROPER CLEANING, WASHING AND SANITIZING OF EQUIPMENT AND UTENSILS",noncritical
+"12A","Hot, cold running water not provided, pressure inadequate","IMPROPER SANITARY FACILITIES AND CONTROLS",noncritical
+"12B","Improperly functioning on-site sewage disposal system, improper/unapproved municipal sewer connection","IMPROPER SANITARY FACILITIES AND CONTROLS",noncritical
+"12C","Plumbing and sinks not properly sized, installed, maintained: equipment and floors not properly drained","IMPROPER SANITARY FACILITIES AND CONTROLS",noncritical
+"12D","Toilet facilities inadequate, inconvenient, dirty, in disrepair, toilet paper missing, not self-closing doors, missing hand wash signs","IMPROPER SANITARY FACILITIES AND CONTROLS",noncritical
+"12E","Handwashing facilities inaccessible, improperly located, dirty, in disrepair, improper fixtures, soap and single service towels or hand drying devices missing","IMPROPER SANITARY FACILITIES AND CONTROLS",noncritical
+"13A","Adequate, leakproof, non-absorbent, vermin-proof, covered containers not provided where needed","IMPROPER GARBAGE AND RUBBISH DISPOSAL",noncritical
+"13B","Garbage storage areas not properly constructed or maintained, creating a nuisance","IMPROPER GARBAGE AND RUBBISH DISPOSAL",noncritical
+"14A","Insects, rodents present","INADEQUATE INSECT/RODENT CONTROL",noncritical
+"14B","Effective measures not used to control entrance (rodent/insect-proof construction) Harborage areas available for rodents, insects and other vermin","INADEQUATE INSECT/RODENT CONTROL",noncritical
+"14C","Pesticide application not supervised by a certified applicator/in accordance with label directions/in accordance with applicable laws","INADEQUATE INSECT/RODENT CONTROL",noncritical
+"15A","Floors, walls, ceilings, not smooth, properly constructed, in disrepair, dirty surfaces","IMPROPER CONSTRUCTION AND MAINTENANCE OF PHYSICAL FACILITIES",noncritical
+"15B","Lighting and ventilation inadequate, fixtures not shielded, dirty ventilation hoods, ductwork, filters, exhaust fans","IMPROPER CONSTRUCTION AND MAINTENANCE OF PHYSICAL FACILITIES",noncritical
+"15C","Premises littered, unnecessary equipment and article present, living quarters not completely separated from food service operations, live animals, birds and pets not excluded","IMPROPER CONSTRUCTION AND MAINTENANCE OF PHYSICAL FACILITIES",noncritical
+"15D","Improper storage of cleaning equipment, linens, laundry unacceptable","IMPROPER CONSTRUCTION AND MAINTENANCE OF PHYSICAL FACILITIES",noncritical
