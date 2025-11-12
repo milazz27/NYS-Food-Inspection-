@@ -51,5 +51,4 @@ with open("../Data/county_health_departments.csv", 'r') as code_file2:
 
 conn.commit()
 
-
 conn.close()
