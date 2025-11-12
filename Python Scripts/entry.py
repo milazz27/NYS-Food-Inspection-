@@ -48,3 +48,37 @@ class Entry:
         self.comments = row.get('INSPECTION COMMENTS', '').strip()
         self.state = row.get('FOOD SERVICE FACILITY STATE', '').strip()
         self.coordinates = row.get('Location1', '').strip()
+        self.row = format_csv_row(self)
+
+def format_csv_row(self):
+    return [
+        self.id,
+        self.facility_name,
+        self.address,
+        self.last_inspected,
+        self.violation_code,
+        self.violation,
+        self.violation_count,
+        self.num_crit_not_corrected,
+        self.num_non_critical,
+        self.description,
+        self.local_health_department,
+        self.county,
+        self.facility_address,
+        self.city,
+        self.zipcode,
+        self.nysdoh,
+        self.municipality,
+        self.operation_name,
+        self.permit_expiration_date,
+        self.permitted,
+        self.business,
+        self.corp_name,
+        self.operator_last_name,
+        self.operator_first_name,
+        self.nys_health_operation_id,
+        self.inspection_type,
+        self.comments,
+        self.state,
+        self.coordinates
+    ]
