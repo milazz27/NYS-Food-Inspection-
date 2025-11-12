@@ -1,4 +1,4 @@
-code,description,category,critical
+code,description,category,priority
 "1A","Unpasteurized milk and milk products used","FOODS ADULTERATED OR RECEIVED FROM UNAPPROVED SOURCES",critical
 "1B","Water/ice: unsafe, unapproved sources, cross connections","FOODS ADULTERATED OR RECEIVED FROM UNAPPROVED SOURCES",critical
 "1C","Home canned goods, or canned goods from unapproved processor found on premises","FOODS ADULTERATED OR RECEIVED FROM UNAPPROVED SOURCES",critical
@@ -18,7 +18,7 @@ code,description,category,critical
 "4A","Toxic chemicals are improperly labeled, stored or used so that contamination of food can occur","FOODS NOT PROTECTED FROM CONTAMINATION BY OTHER SOURCES",critical
 "4B","Acid foods are stored in containers or pipes that consist of toxic metals (antimony, cadmium, copper, zinc, lead)","FOODS NOT PROTECTED FROM CONTAMINATION BY OTHER SOURCES",critical
 "4C","Foods or food area/public area contaminated by sewage or drippage from waste lines","FOODS NOT PROTECTED FROM CONTAMINATION BY OTHER SOURCES",critical
-"5A","Potentially hazardous foods are not kept at or below 45°F during cold holding, except smoked fish not kept at or below 38°F during cold holding",
+"5A","Potentially hazardous foods are not kept at or below 45°F during cold holding, except smoked fish not kept at or below 38°F during cold holding",FOODS NOT PROTECTED FROM CONTAMINATION BY OTHER SOURCES,critical
 "5B","Potentially hazardous foods are not cooled by an approved method where the food temperature can be reduced from 120°F to 70°F or less within two hours and 70°F to 45°F within four hours. (Potentially hazardous foods that are cooling may be uncovered during the cooling period)","IMPROPER COOLING AND REFRIGERATED STORAGE OF POTENTIALLY HAZARDOUS FOODS",critical
 "5C","Potentially hazardous foods are not stored under refrigeration except during necessary preparation or approved precooling procedures","IMPROPER COOLING AND REFRIGERATED STORAGE OF POTENTIALLY HAZARDOUS FOODS",critical
 "5D","Potentially hazardous foods such as salads prepared from potatoes or macaroni are not prepared as recommended using prechilled ingredients and are not prechilled to 45°F or less as recommended before they are stored on buffet lines","IMPROPER COOLING AND REFRIGERATED STORAGE OF POTENTIALLY HAZARDOUS FOODS",critical
