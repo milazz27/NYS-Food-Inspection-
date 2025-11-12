@@ -27,15 +27,11 @@ setup_violation_code = '''
 cursor.execute(clear_codes)
 cursor.execute(setup_violation_code)
 
-with open('../Data/codes_data.csv', 'r') as code_file:
-    reader = csv.reader(code_file)
-    next(reader)
-    for row in reader:
-        cursor.execute(
-            '''
-            INSERT INTO violation_codes VALUES(row);
-            ''')
-    conn.commit()
+with open("../Data/code_data.csv", 'r') as code_file:
+    next(code_file)
+    cursor.copy_from(code_file, 'violation_codes', sep='+')
+
+conn.commit()
 
 setup_health_depts = '''
                         CREATE TABLE health_depts(
@@ -45,21 +41,15 @@ setup_health_depts = '''
                             fax VARCHAR(12),
                             url TEXT);'''
 
-grab_dept_data = '''
-                    COPY health_depts(County, Department, Phone, Fax, Website)
-                    FROM 'county_health_departments.csv'
-                    DELIMITER ','
-                    CSV HEADER;
-                '''
-
-#loading code data into db
-cursor.execute(clear_codes)
-cursor.execute(setup_violation_code)
-
 #loading dept data into db
 cursor.execute(clear_depts)
 cursor.execute(setup_health_depts)
-cursor.execute(grab_dept_data)
+
+with open("../Data/county_health_departments.csv", 'r') as code_file2:
+    next(code_file2)
+    cursor.copy_from(code_file2, 'health_depts', sep=',')
 
 conn.commit()
+
+
 conn.close()
