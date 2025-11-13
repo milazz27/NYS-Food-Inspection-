@@ -36,8 +36,8 @@ def read_from_file(filename, data):
                         data.process_new_entry(entry)
 
 def write_to_csv(data):
-    with open("restaurants.csv", "w", newline="", encoding="utf-8") as out_file:
-        writer = csv.writer(out_file)
+    with open("../Data/restaurants2.csv", "w", newline="", encoding="utf-8") as out_file:
+        writer = csv.writer(out_file,delimiter='^')
         writer.writerow(["rid", "facility_name","address","last_inspected","violation_code", "violation", \
                          "violation_count","num_crit_not_corrected","num_non_critical","description","local_health_dept", \
                          "county","facility_address","city","zipcode","nysdoh","municipality","operation_name", \
