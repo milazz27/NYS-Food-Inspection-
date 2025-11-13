@@ -98,5 +98,4 @@ with open("../Data/restaurants2.csv", 'r',encoding="utf-8", errors="ignore") as 
 
 conn.commit()
 
-
 conn.close()
