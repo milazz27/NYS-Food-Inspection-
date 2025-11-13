@@ -30,7 +30,7 @@ def read_from_file(filename, data):
                         break
                     if v.find('Item ') != -1:
                         get_code = v.split('- ')
-                        violation_code = get_code[0].strip()
+                        violation_code = get_code[0].split('Item ')[1].strip()
                         violation_str = get_code[1].strip()
                         entry = Entry(row, create_id(), violation_str, violation_code,)
                         data.process_new_entry(entry)
@@ -50,9 +50,9 @@ def write_to_csv(data):
 
 def main():
     data = Data()
-    read_from_file("../Data/rawData.csv", data)
+    read_from_file("../Data/sample_set.csv", data)
     write_to_csv(data)
-    print("done")
+    print("Done 🔥")
 
 if __name__ == "__main__":
     main()
