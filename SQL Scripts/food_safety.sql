@@ -1,14 +1,16 @@
-DROP TABLE IF EXISTS facilities;
-DROP TABLE IF EXISTS permits;
-DROP TABLE IF EXISTS facility_address;
-DROP TABLE IF EXISTS inspection_details;
 DROP TABLE IF EXISTS facilities_healthdepts;
+DROP TABLE IF EXISTS inspection_details;
+DROP TABLE IF EXISTS facility_addresses;
+DROP TABLE IF EXISTS permits;
+DROP TABLE IF EXISTS facilities;
+
+-- add a violations summary table
 
 CREATE TABLE facilities(
     fid VARCHAR(8) PRIMARY KEY,
-    name TEXT NOT NULL,
+    fullname TEXT NOT NULL,
     facility_type TEXT,
-    last_inspected DATE -- will need to convert from / to - in between
+    last_inspected DATE
 );
 
 CREATE TABLE permits(
@@ -21,7 +23,7 @@ CREATE TABLE permits(
     PRIMARY KEY(fid, expiration_date)
 );
 
-CREATE TABLE facility_address(
+CREATE TABLE facility_addresses(
     fid VARCHAR(8),
     street_address TEXT,
     county TEXT,
@@ -35,10 +37,12 @@ CREATE TABLE facility_address(
 );
 
 CREATE TABLE inspection_details(
-    fid VARCHAR,
+    fid VARCHAR(8),
     inspection_date DATE,
+    inspection_type TEXT,
     violation_code VARCHAR(3),
-    notes TEXT,
+    violation_description TEXT,
+    inspector_comments TEXT,
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE,
     PRIMARY KEY (fid, inspection_date, violation_code)
 );
@@ -48,3 +52,77 @@ CREATE TABLE facilities_healthdepts(
     county TEXT,
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE
 );
+
+--- Code for inserting data to tables
+
+-- Inserting into facilities
+INSERT INTO facilities(fid, fullname, facility_type, last_inspected)
+SELECT
+    a.rid,
+    a.fullname,
+    a.description,
+    a.last_inspected
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.fullname, a.description, a.last_inspected
+;
+
+-- Insert into permits
+INSERT INTO permits(fid, expiration_date, nys_op_id, operator_fname, operator_lname)
+SELECT
+    a.rid,
+    a.permit_exp_date,
+    a.nys_health_id,
+    a.operator_fname,
+    a.operator_lname
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.permit_exp_date, a.nys_health_id, a.operator_fname, a.operator_lname
+;
+
+-- Insert into facility addresses
+INSERT INTO facility_addresses(fid, street_address, county, city, zip, nysdoh, latitude, longitude)
+SELECT
+    a.rid,
+    a.address,
+    a.county,
+    a.city,
+    a.zipcode,
+    a.nysdoh,
+    a.latitude,
+    a.longitude
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.address, a.county, a.city, a.zipcode, a.nysdoh, a.latitude, a.longitude
+;
+
+-- Insert into inspection details
+INSERT INTO inspection_details(fid, inspection_date, inspection_type, violation_code, violation_description,
+                               inspector_comments)
+SELECT
+    a.rid,
+    a.last_inspected,
+    a.inspection_type,
+    a.violation_code,
+    a.violation,
+    a.comments
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.last_inspected, a.inspection_type, a.violation_code, a.violation, a.comments
+;
+
+-- Insert into facilities_health_depts
+INSERT INTO facilities_healthdepts(fid, county)
+SELECT
+    a.rid,
+    a.county
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.county
+;
+

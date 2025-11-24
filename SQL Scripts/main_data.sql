@@ -6,7 +6,7 @@
     rid VARCHAR(8),
     facility_name TEXT,
     address TEXT,
-    last_inspected TEXT,
+    last_inspected DATE,
     violation_code VARCHAR(3),
     violation TEXT,
     violation_count INT,
@@ -21,7 +21,7 @@
     nysdoh TEXT,
     municipality TEXT,
     operation_name TEXT,
-    permit_exp_date TEXT,
+    permit_exp_date DATE,
     permitted TEXT,
     business TEXT,
     corp_name TEXT,
@@ -31,5 +31,6 @@
     inspection_type TEXT,
     comments TEXT,
     state TEXT,
-    coords TEXT
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION
  );

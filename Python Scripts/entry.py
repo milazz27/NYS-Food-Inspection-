@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Entry:
     """
     Each object represent a single row of data; used to aid in data cleaning
@@ -7,7 +9,12 @@ class Entry:
         self.id = id
         self.facility_name = row.get('FACILITY', '').strip()
         self.address = row.get('ADDRESS', '').strip()
-        self.last_inspected = row.get('LAST INSPECTED', '').strip()
+
+        #Converting date to SQL format
+        orig_date = row.get('LAST INSPECTED', '').strip()
+        sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+        self.last_inspected = sql_date.strftime("%Y-%m-%d")
+
         self.violation_code = code
         self.violation = violation
         #violation count
@@ -37,7 +44,12 @@ class Entry:
         self.nysdoh = row.get('NYSDOH GAZETTEER (1980)', '').strip()
         self.municipality = row.get('MUNICIPALITY', '').strip()
         self.operation_name = row.get('OPERATION NAME', '').strip()
-        self.permit_expiration_date = row.get('PERMIT EXPIRATION DATE', '').strip()
+
+        #Changing permit expr date to SQL format
+        orig_date = row.get('PERMIT EXPIRATION DATE', '').strip()
+        sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+        self.permit_expiration_date = sql_date.strftime("%Y-%m-%d")
+
         self.permitted = row.get('PERMITTED  (D/B/A)', '').strip()
         self.business = row.get('OPERATION NAME', '').strip()
         self.corp_name = row.get('PERMITTED  CORP. NAME', '').strip()
@@ -47,7 +59,12 @@ class Entry:
         self.inspection_type = row.get('INSPECTION TYPE', '').strip()
         self.comments = row.get('INSPECTION COMMENTS', '').strip()
         self.state = row.get('FOOD SERVICE FACILITY STATE', '').strip()
-        self.coordinates = row.get('Location1', '').strip()
+
+        #Splitting up the coords into lat and lon
+        coords = row.get('Location1', '').strip()
+        coord_str = coords.strip("()")
+        self.latitude, self.longitude = coord_str.split(",")
+
         self.row = format_csv_row(self)
 
 def format_csv_row(self):
@@ -80,5 +97,6 @@ def format_csv_row(self):
         self.inspection_type,
         self.comments,
         self.state,
-        self.coordinates
+        self.latitude,
+        self.longitude
     ]
