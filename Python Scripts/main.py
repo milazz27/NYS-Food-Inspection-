@@ -2,6 +2,10 @@ from data import Data
 from data import Entry
 import csv
 import uuid
+import requests
+from io import StringIO
+import pandas as pd
+
 
 def create_id():
     """
@@ -19,20 +23,21 @@ def read_from_file(filename, data):
         for row in reader:
             violations = row.get('VIOLATIONS', '')
             indiv_violations = violations.split(';')
+            rid = create_id()
 
             #ensuring that there will be an entry for each individual violation for
             #data modeling purposes
             for v in indiv_violations:
                 if v != '':
                     if v.find('No violations found') != -1:
-                        entry = Entry(row, create_id(), v, None)
+                        entry = Entry(row, rid, v, None)
                         data.process_new_entry(entry)
                         break
                     if v.find('Item ') != -1:
                         get_code = v.split('- ')
                         violation_code = get_code[0].split('Item ')[1].strip()
                         violation_str = get_code[1].strip()
-                        entry = Entry(row, create_id(), violation_str, violation_code,)
+                        entry = Entry(row, rid, violation_str, violation_code,)
                         data.process_new_entry(entry)
 
 def write_to_csv(data):
@@ -50,6 +55,11 @@ def write_to_csv(data):
 
 def main():
     data = Data()
+    #url = "https://health.data.ny.gov/resource/cnih-y5dw.csv"
+    #resp = requests.get(url, timeout=30)
+    #resp.raise_for_status()  # raise if non-2xx
+    #df = pd.read_csv(StringIO(resp.text))
+    #print(df.head())
     read_from_file("../Data/sample_set.csv", data)
     write_to_csv(data)
     print("Done 🔥")

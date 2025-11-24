@@ -38,7 +38,10 @@ class Data:
         Completes the updating process for a new Entry object.
         """
         # Add the entry itself
-        self.data[entry.id] = entry
+        if entry.id not in self.data:
+            self.data[entry.id] = []
+        self.data[entry.id].append(entry)
+
 
         # Update analysis metrics
         self.insert_inspection_type(entry.inspection_type)
