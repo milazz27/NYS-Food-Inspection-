@@ -31,5 +31,6 @@
     inspection_type TEXT,
     comments TEXT,
     state TEXT,
-    coords TEXT
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION
  );

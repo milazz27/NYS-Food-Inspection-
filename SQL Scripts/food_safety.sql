@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS facilities_healthdepts;
 
 CREATE TABLE facilities(
     fid VARCHAR(8) PRIMARY KEY,
-    name TEXT NOT NULL,
+    fullname TEXT NOT NULL,
     facility_type TEXT,
-    last_inspected DATE -- will need to convert from / to - in between
+    last_inspected DATE
 );
 
 CREATE TABLE permits(

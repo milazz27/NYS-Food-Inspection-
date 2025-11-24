@@ -59,7 +59,12 @@ class Entry:
         self.inspection_type = row.get('INSPECTION TYPE', '').strip()
         self.comments = row.get('INSPECTION COMMENTS', '').strip()
         self.state = row.get('FOOD SERVICE FACILITY STATE', '').strip()
-        self.coordinates = row.get('Location1', '').strip()
+
+        #Splitting up the coords into lat and lon
+        coords = row.get('Location1', '').strip()
+        coord_str = coords.strip("()")
+        self.latitude, self.longitude = coord_str.split(",")
+
         self.row = format_csv_row(self)
 
 def format_csv_row(self):
@@ -92,5 +97,6 @@ def format_csv_row(self):
         self.inspection_type,
         self.comments,
         self.state,
-        self.coordinates
+        self.latitude,
+        self.longitude
     ]
