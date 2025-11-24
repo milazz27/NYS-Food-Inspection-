@@ -48,3 +48,4 @@ CREATE TABLE facilities_healthdepts(
     county TEXT,
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE
 );
+

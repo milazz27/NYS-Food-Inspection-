@@ -37,7 +37,7 @@ def read_from_file(filename, data):
                         get_code = v.split('- ')
                         violation_code = get_code[0].split('Item ')[1].strip()
                         violation_str = get_code[1].strip()
-                        entry = Entry(row, rid, violation_str, violation_code,)
+                        entry = Entry(row, rid, violation_str, violation_code)
                         data.process_new_entry(entry)
 
 def write_to_csv(data):
