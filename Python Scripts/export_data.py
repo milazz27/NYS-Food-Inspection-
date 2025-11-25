@@ -68,7 +68,7 @@ def drive_data_export():
                             description TEXT,
                             local_health_dept TEXT,
                             county TEXT,
-                            facility_addresss TEXT,
+                            facility_address TEXT,
                             city TEXT,
                             zipcode TEXT,
                             nysdoh TEXT,
@@ -93,9 +93,31 @@ def drive_data_export():
     cursor.execute(clear_raw)
     cursor.execute(setup_raw_table)
 
-    with open("../Data/restaurants2.csv", 'r',encoding="utf-8", errors="ignore") as code_file3:
-        next(code_file3)
-        cursor.copy_from(code_file3, 'all_rest_data', sep='^')
+    with open("../Data/restaurants2.csv", 'r', encoding="utf-8", errors="ignore") as raw_file:
+        reader = csv.reader(raw_file, delimiter='^')
+        next(reader)  # skip header
+
+        insert_sql = """
+                     INSERT INTO all_rest_data (rid, fullname, address, last_inspected, violation_code, \
+                                                violation, violation_count, num_crit_not_corrected, \
+                                                num_not_critical, description, local_health_dept, county, \
+                                                facility_address, city, zipcode, nysdoh, municipality, \
+                                                operation_name, permit_exp_date, permitted, business, \
+                                                corp_name, operator_lname, operator_fname, nys_health_id, \
+                                                inspection_type, comments, state, latitude, longitude)
+                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); \
+                     """
+
+        for rowvals in reader:
+            # Convert empty strings → None so PostgreSQL stores NULL
+            if len(rowvals) != 30:
+                print("BAD ROW LENGTH:", len(rowvals))
+                print(rowvals)
+                raise Exception("Row length mismatch")
+            rowvals = [val if val.strip() != "" else None for val in rowvals]
+
+            cursor.execute(insert_sql, rowvals)
 
     conn.commit()
 

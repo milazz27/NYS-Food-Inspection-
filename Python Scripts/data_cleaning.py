@@ -47,7 +47,7 @@ def write_to_csv(data):
                          "violation_count","num_crit_not_corrected","num_non_critical","description","local_health_dept", \
                          "county","facility_address","city","zipcode","nysdoh","municipality","operation_name", \
                          "permit_exp_date","permitted","business","corp_name","operator_lname","operator_fname", \
-                         "nys_health_id","inspection_type","comments","state","coords"])
+                         "nys_health_id","inspection_type","comments","state","latitude","longitude"])
         for entry in data.data.values():
             for ele in entry:
                 writer.writerow(ele.row)
@@ -61,7 +61,7 @@ def drive_cleaning():
     #resp.raise_for_status()  # raise if non-2xx
     #df = pd.read_csv(StringIO(resp.text))
     #print(df.head())
-    read_from_file("../Data/sample_set.csv", data)
+    read_from_file("../Data/rawData.csv", data)
     write_to_csv(data)
     print("Data cleaned & written to restaurants2.csv 😈➡️😇")
 
