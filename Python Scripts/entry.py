@@ -12,8 +12,12 @@ class Entry:
 
         #Converting date to SQL format
         orig_date = row.get('LAST INSPECTED', '').strip()
-        sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
-        self.last_inspected = sql_date.strftime("%Y-%m-%d")
+        try:
+            sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+            self.last_inspected = sql_date.strftime("%Y-%m-%d")
+        except ValueError:
+            # Invalid, empty, or badly formatted date → NULL
+            self.last_inspected = None
 
         self.violation_code = code
         self.violation = violation
@@ -47,8 +51,11 @@ class Entry:
 
         #Changing permit expr date to SQL format
         orig_date = row.get('PERMIT EXPIRATION DATE', '').strip()
-        sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
-        self.permit_expiration_date = sql_date.strftime("%Y-%m-%d")
+        try:
+            sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+            self.permit_expiration_date = sql_date.strftime("%Y-%m-%d")
+        except ValueError:
+            self.permit_expiration_date = None
 
         self.permitted = row.get('PERMITTED  (D/B/A)', '').strip()
         self.business = row.get('OPERATION NAME', '').strip()
