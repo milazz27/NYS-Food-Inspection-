@@ -60,6 +60,15 @@ CREATE TABLE facilities_healthdepts(
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE
 );
 
+CREATE TABLE frequency(
+    fid VARCHAR(8),
+    violation_count INT,
+    num_crit_not_corrected INT,
+    num_not_critical INT,
+    FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE,
+    PRIMARY KEY (fid)
+);
+
 --- Code for inserting data to tables
 
 -- Inserting into facilities
