@@ -1,0 +1,9 @@
+# Ignore generated CSVs
+restaurants2.csv
+
+# Ignore all CSVs in Data/
+Data/*.csv
+
+# Ignore env files
+.env
+

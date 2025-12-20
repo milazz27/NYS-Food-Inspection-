@@ -3,19 +3,18 @@ DROP TABLE IF EXISTS violation_details;
 DROP TABLE IF EXISTS inspection_comments;
 DROP TABLE IF EXISTS facility_addresses;
 DROP TABLE IF EXISTS permits;
+DROP TABLE IF EXISTS frequencies;
 DROP TABLE IF EXISTS facilities;
 
--- add a violations summary table
-
 CREATE TABLE facilities(
-    fid VARCHAR(8) PRIMARY KEY,
+    fid VARCHAR(50) PRIMARY KEY,
     fullname TEXT NOT NULL,
     facility_type TEXT,
     last_inspected DATE
 );
 
 CREATE TABLE permits(
-    fid VARCHAR(8),
+    fid VARCHAR(50),
     expiration_date DATE,
     nys_op_id TEXT,
     operator_fname TEXT,
@@ -25,7 +24,7 @@ CREATE TABLE permits(
 );
 
 CREATE TABLE facility_addresses(
-    fid VARCHAR(8),
+    fid VARCHAR(50),
     street_address TEXT,
     county TEXT,
     city TEXT,
@@ -38,7 +37,7 @@ CREATE TABLE facility_addresses(
 );
 
 CREATE TABLE violation_details(
-    fid VARCHAR(8),
+    fid VARCHAR(50),
     inspection_date DATE,
     inspection_type TEXT,
     violation_code VARCHAR(3),
@@ -48,20 +47,20 @@ CREATE TABLE violation_details(
 );
 
 CREATE TABLE inspection_comments(
-    fid VARCHAR(8),
+    fid VARCHAR(50),
     comments TEXT,
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE,
     PRIMARY KEY (fid)
 );
 
 CREATE TABLE facilities_healthdepts(
-    fid VARCHAR(8),
+    fid VARCHAR(50),
     county TEXT,
     FOREIGN KEY (fid) REFERENCES facilities(fid) ON DELETE CASCADE
 );
 
-CREATE TABLE frequency(
-    fid VARCHAR(8),
+CREATE TABLE frequencies(
+    fid VARCHAR(50),
     violation_count INT,
     num_crit_not_corrected INT,
     num_not_critical INT,
@@ -154,5 +153,17 @@ FROM
     all_rest_data a
 GROUP BY
     a.rid, a.county
+;
+
+INSERT INTO frequencies(fid, violation_count, num_crit_not_corrected, num_not_critical)
+SELECT
+    a.rid, 
+    a.violation_count, 
+    a.num_crit_not_corrected, 
+    a.num_not_critical
+FROM
+    all_rest_data a
+GROUP BY
+    a.rid, a.violation_count, a.num_crit_not_corrected, a.num_not_critical
 ;
 

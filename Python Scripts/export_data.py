@@ -56,7 +56,7 @@ def drive_data_export():
 
     setup_raw_table = '''
                         CREATE TABLE all_rest_data(
-                            rid VARCHAR(8),
+                            rid VARCHAR(50),
                             fullname TEXT,
                             address TEXT,
                             last_inspected DATE,
@@ -102,16 +102,16 @@ def drive_data_export():
                                                 violation, violation_count, num_crit_not_corrected, \
                                                 num_not_critical, description, local_health_dept, county, \
                                                 facility_address, city, zipcode, nysdoh, municipality, \
-                                                operation_name, permit_exp_date, permitted, business, \
+                                                operation_name, permit_exp_date, permitted, \
                                                 corp_name, operator_lname, operator_fname, nys_health_id, \
                                                 inspection_type, comments, state, latitude, longitude)
                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); \
+                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); \
                      """
 
         for rowvals in reader:
             # Convert empty strings → None so PostgreSQL stores NULL
-            if len(rowvals) != 30:
+            if len(rowvals) != 29:
                 print("BAD ROW LENGTH:", len(rowvals))
                 print(rowvals)
                 raise Exception("Row length mismatch")

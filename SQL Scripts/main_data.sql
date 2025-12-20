@@ -3,7 +3,7 @@
  DROP TABLE IF EXISTS all_rest_data;
 
  CREATE TABLE all_rest_data(
-    rid VARCHAR(8),
+    rid VARCHAR(50),
     facility_name TEXT,
     address TEXT,
     last_inspected DATE,
