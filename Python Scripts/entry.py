@@ -1,78 +1,80 @@
 from datetime import datetime
 
+from datetime import datetime
+
+def safe_int(val):
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        return 0
+
+
 class Entry:
     """
-    Each object represent a single row of data; used to aid in data cleaning
-    de-duplicating.
+    Each object represents a single row of data; used to aid in data cleaning
+    and de-duplicating.
     """
+
     def __init__(self, row, id, violation, code):
         self.id = id
-        self.facility_name = row.get('FACILITY', '').strip()
-        self.address = row.get('ADDRESS', '').strip()
+        self.facility_name = row.get('facility', '').strip()
+        self.address = row.get('address', '').strip()
 
-        #Converting date to SQL format
-        orig_date = row.get('LAST INSPECTED', '').strip()
+        # Inspection date (ISO → SQL)
+        orig_date = row.get('date', '').strip()
         try:
-            sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+            sql_date = datetime.fromisoformat(orig_date.replace("Z", ""))
             self.last_inspected = sql_date.strftime("%Y-%m-%d")
-        except ValueError:
-            # Invalid, empty, or badly formatted date → NULL
+        except (ValueError, TypeError):
             self.last_inspected = None
 
         self.violation_code = code
         self.violation = violation
-        #violation count
-        violation_count = row.get('TOTAL # CRITICAL VIOLATIONS', '').strip()
-        if violation_count != '':
-            self.violation_count = int(violation_count)
-        else:
-            self.violation_count = 0
-        #not corrected count
-        num_crit_not_corrected = row.get('TOTAL #CRIT.  NOT CORRECTED ', '').strip()
-        if num_crit_not_corrected != '':
-            self.num_crit_not_corrected = int(num_crit_not_corrected)
-        else:
-            self.num_crit_not_corrected = 0
-        #non-critical count
-        num_non_critical = row.get('TOTAL # NONCRITICAL VIOLATIONS', '').strip()
-        if num_non_critical != '':
-            self.num_non_critical = int(num_non_critical)
-        else:
-            self.num_non_critical = 0
-        self.description = row.get('DESCRIPTION', '').strip()
-        self.local_health_department = row.get(' LOCAL HEALTH DEPARTMENT', '').strip()
-        self.county = row.get('COUNTY', '').strip()
-        self.facility_address = row.get('FACILITY ADDRESS', '').strip()
-        self.city = row.get('CITY', '').strip()
-        self.zipcode = row.get('ZIP CODE', '').strip()
-        self.nysdoh = row.get('NYSDOH GAZETTEER (1980)', '').strip()
-        self.municipality = row.get('MUNICIPALITY', '').strip()
-        self.operation_name = row.get('OPERATION NAME', '').strip()
 
-        #Changing permit expr date to SQL format
-        orig_date = row.get('PERMIT EXPIRATION DATE', '').strip()
+        # Violation counts
+        self.violation_count = safe_int(row.get('total_critical_violations'))
+        self.num_crit_not_corrected = safe_int(row.get('total_crit_not_corrected'))
+        self.num_non_critical = safe_int(row.get('total_noncritical_violations'))
+
+        self.description = row.get('description', '').strip()
+        self.local_health_department = row.get('local_health_department', '').strip()
+        self.county = row.get('county', '').strip()
+        self.facility_address = row.get('facility_address', '').strip()
+        self.city = row.get('city', '').strip()
+        self.zipcode = row.get('zip_code', '').strip()
+        self.nysdoh = row.get('nysdoh_gazetteer_1980', '').strip()
+        self.municipality = row.get('municipality', '').strip()
+        self.operation_name = row.get('operation_name', '').strip()
+
+        # Permit expiration date
+        orig_date = row.get('permit_expiration_date', '').strip()
         try:
-            sql_date = datetime.strptime(orig_date, "%m/%d/%Y")
+            sql_date = datetime.fromisoformat(orig_date.replace("Z", ""))
             self.permit_expiration_date = sql_date.strftime("%Y-%m-%d")
-        except ValueError:
+        except (ValueError, TypeError):
             self.permit_expiration_date = None
 
-        self.permitted = row.get('PERMITTED  (D/B/A)', '').strip()
-        self.business = row.get('OPERATION NAME', '').strip()
-        self.corp_name = row.get('PERMITTED  CORP. NAME', '').strip()
-        self.operator_last_name = row.get('PERM. OPERATOR LAST NAME', '').strip()
-        self.operator_first_name = row.get('PERM. OPERATOR FIRST NAME', '').strip()
-        self.nys_health_operation_id = row.get('NYS HEALTH OPERATION ID', '').strip()
-        self.inspection_type = row.get('INSPECTION TYPE', '').strip()
-        self.comments = row.get('INSPECTION COMMENTS', '').strip()
-        self.state = row.get('FOOD SERVICE FACILITY STATE', '').strip()
+        self.permitted = row.get('permitted_d_b_a', '').strip()
+        self.corp_name = row.get('permitted_corp_name', '').strip()
+        self.operator_last_name = row.get('perm_operator_last_name', '').strip()
+        self.operator_first_name = row.get('perm_operator_first_name', '').strip()
+        self.nys_health_operation_id = row.get('nys_health_operation_id', '').strip()
+        self.inspection_type = row.get('inspection_type', '').strip()
+        self.comments = row.get('inspection_comments', '').strip()
+        self.state = row.get('food_service_facility_state', '').strip()
 
-        #Splitting up the coords into lat and lon
-        coords = row.get('Location1', '').strip()
-        coord_str = coords.strip("()")
-        self.latitude, self.longitude = coord_str.split(",")
+        # Coordinates
+        coords = row.get('location1', '').strip()
+        if coords.startswith("(") and coords.endswith(")"):
+            lat, lon = coords.strip("()").split(",")
+            self.latitude = lat.strip()
+            self.longitude = lon.strip()
+        else:
+            self.latitude = None
+            self.longitude = None
 
         self.row = format_csv_row(self)
+
 
 def format_csv_row(self):
     return [
@@ -96,7 +98,7 @@ def format_csv_row(self):
         self.operation_name,
         self.permit_expiration_date,
         self.permitted,
-        self.business,
+        #self.business,
         self.corp_name,
         self.operator_last_name,
         self.operator_first_name,
