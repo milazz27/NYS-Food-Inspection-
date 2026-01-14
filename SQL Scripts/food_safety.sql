@@ -167,3 +167,18 @@ GROUP BY
     a.rid, a.violation_count, a.num_crit_not_corrected, a.num_not_critical
 ;
 
+SELECT
+    fid,
+    fullname
+FROM
+    facilities
+WHERE
+    LOWER(fullname) like "little";
+
+SELECT
+    v.last_inspected,
+    v.violation
+FROM
+    violation_details v
+WHERE
+    rid = 'bd4dde84-cdd3-41a0-9472-017ecd5667d5';
