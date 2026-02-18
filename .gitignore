@@ -7,3 +7,8 @@ Data/*.csv
 # Ignore env files
 .env
 
+#personal documentation stuff
+settingUpDBApi.txt
+
+#database connection with password details
+export_data.py
