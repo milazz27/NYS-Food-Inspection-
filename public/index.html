@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NYS Food Safety Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: rgb(29, 24, 38);
+      color: white;
+    }
+
+    /* ---------- TOPBAR ---------- */
+    .topbar {
+      height: 80px;
+      background: rgb(25, 22, 31);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .top-icon {
+        margin-left: auto;   /* THIS pushes it to the far right */
+        height: 40px;
+        cursor: pointer;
+    }
+
+    .logo {
+        margin-top: 20px;
+        top: 20px;
+        height: 70px;
+        margin-left: 20px;
+    }
+
+    .git-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+
+        align-self: center;   /* centers horizontally */
+        margin-bottom: 30px;  /* space from bottom */
+    }
+
+    .git-button img {
+        height: 35px;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+        width: 230px;
+        height: 100vh;
+        background: rgb(25, 22, 31);
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        display: flex;           /* NEW */
+        flex-direction: column;  /* stack items vertically */
+    }
+
+    .secondary-logo {
+        display: flex;
+        justify-content: center;   /* centers horizontally */
+        margin-top: 40px;          /* distance from top of sidebar */
+    }
+
+    .secondary-logo img {
+        width: 180px;   /* adjust size */
+        height: auto;
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    .nav {
+        margin-top: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        flex-grow: 1;   /* THIS pushes GitHub button to bottom */
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: #554d85ff;
+    }
+
+    .nav-item.active {
+        background: #554d85ff;   /* same as hover color */
+    }
+
+    .nav-icon {
+      width: 30px;
+    }
+
+    .main {
+      margin-left: 230px;                 /* same as sidebar width */
+      min-height: 100vh;
+      padding: 40px 60px;
+    }
+
+    .logo-center {
+        display: flex;
+        justify-content: center;   /* centers horizontally */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .logo-center img {
+        height: 190px;   /* adjust size */
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: auto auto;  /* key change */
+        justify-content: center;           /* centers the pair */
+        gap: 150px;                         /* controls spacing between them */
+        margin-top: 100px;
+        margin-bottom: 40px;
+    }
+
+
+    .stat-num {
+      font-size: 90px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      font-weight: 200;
+      font-family: 'Kulim Park', sans-serif;
+    }
+
+    .stat-label {
+      margin-top: 10px;
+      font-size: 24px;
+      text-align: center;
+      font-family: 'Kulim Park', sans-serif;
+    }
+
+    .stat-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .stat-icon {
+        width: 100px;   /* adjust to match your design */
+        height: auto;
+    }
+
+
+    /* ---------- SEARCH BUTTON ---------- */
+
+    .search-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+
+        max-width: 600px;
+        margin: 70px auto 0 auto;   /* center horizontally */
+    }
+
+    .search-bar {
+        height: 64px;
+        background: #F1F0EB;
+        border-radius: 14px;
+
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+    }
+
+    .search-bar input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: black;
+        font-size: 18px;
+    }
+
+    .search-bar input::placeholder {
+        color: rgba(54, 53, 53, 0.65);
+        font-size: 20;
+    }
+
+    .search-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .search-button img {
+        width: 140px;
+    }
+
+    .dropdown-nav {
+        max-width: 100px;
+        margin: 20px auto 0 auto;   /* space below search bar */
+
+        background: #252436ff;
+        border-radius: 16px;
+
+        display: flex;
+        overflow: hidden;
+    }
+
+    .filter-dropdown {
+        max-width: 300px;
+        margin: 20px auto;
+        position: relative;
+    }
+
+    .filter-btn {
+        width: 100%;
+        padding: 16px;
+        font-size: 20px;
+        background: #252436ff;
+        border-radius: 14px;
+        color: white;
+        cursor: pointer;
+        text-align: left;
+
+        border: none;          /* ADD THIS */
+        outline: none;
+    }
+
+    .dropdown-content {
+        display: none;  /* hidden by default */
+
+        position: absolute;
+        width: 100%;
+        margin-top: 8px;
+
+        color: white;
+
+        font-size: 18px;
+
+        background: #252436ff;
+        border-radius: 14px;
+
+        padding: 12px;
+
+         max-height: 200px;   /* LIMIT HEIGHT */
+        overflow-y: auto;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .checkbox-item:hover {
+        background: #6e518bff;
+        border-radius: 8px;
+    }
+
+    .checkbox-item input {
+        width: 18px;
+        height: 18px;
+        accent-color: #4c74a3ff;   /* change to any color */
+    }
+
+    .dropdown-content.show {
+        display: block;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <img src="homepage-assets/Home.svg" class="top-icon">
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <!-- Secondary logo -->
+<div class="secondary-logo">
+    <img src="homepage-assets/smallLogo.svg">
+</div>
+  <div class="nav">
+    <div class="nav-item active">
+    <img src="homepage-assets/Home.svg" class="nav-icon">
+    <span>Home Page</span>
+    </div>
+
+    <div class="nav-item">
+        <img src="homepage-assets/Compass.svg" class="nav-icon" alt="">
+        <span>All Results</span>
+        </div>
+    </div>
+
+    <button class="git-button" type="button">
+        <img src="homepage-assets/Github.svg">
+    </button>
+</div>
+
+
+
+  <div class="main">
+
+    <div class="logo-center">
+        <img src="homepage-assets/logo.svg">
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-row">
+                <img src="homepage-assets/Database.svg" class="stat-icon">
+                <div class="stat-num">21689</div>
+            </div>
+            <div class="stat-label">Facilities Tracked</div>
+        </div>
+
+      <div class="stat">
+
+    <div class="stat-row">
+        <img src="homepage-assets/Eye.svg" class="stat-icon">
+        <div class="stat-num">4190</div>
+    </div>
+
+    <div class="stat-label">Violations Reported</div>
+
+    </div>
+    </div>
+
+
+<!-- SEARCH BAR -->
+<div class="search-row">
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search Keywords..." />
+  </div>
+
+  <button class="search-button" type="button">
+    <img src="homepage-assets/search-button.svg" alt="Search">
+  </button>
+
+</div>
+
+<!-- MULTI SELECT DROPDOWN -->
+<div class="filter-dropdown">
+
+  <button class="filter-btn" onclick="toggleDropdown()">
+    County Selection ▼
+  </button>
+
+  <div class="dropdown-content" id="filterMenu">
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ALBANY
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ALLEGANY
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      BROOME
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CATTARAUGUS
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CAYUGA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CHAUTAUQUA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CHEMUNG
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CHENANGO
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CLINTON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      COLUMBIA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      CORTLAND
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      DELAWARE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      DUTCHESS
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ESSEX
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      FRANKLIN
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      FULTON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      GENESEE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      GREENE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      HAMILTON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      HERKIMER
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      JEFFERSON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      LEWIS
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      LIVINGSTON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      MADISON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      MONROE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      MONTGOMERY
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      NASSAU
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      NIAGARA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ONEIDA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ONONDAGA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ONTARIO
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ORANGE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ORLEANS
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      OSWEGO
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      OTSEGO
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      PUTNAM
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      RENSSELAER
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ROCKLAND
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SARATOGA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SCHENECTADY
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SCHOHARIE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SCHUYLER
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SENECA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ST LAWRENCE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      STEUBEN
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      SULLIVAN
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      TIOGA
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      TOMPKINS
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      ULSTER
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      WARREN
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      WASHINGTON
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      WAYNE
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      WESTCHESTER
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      WYOMING
+    </label>
+
+    <label class="checkbox-item">
+      <input type="checkbox" value="passed">
+      YATES
+    </label>
+
+  </div>
+
+</div>
+
+<script>
+function toggleDropdown() {
+  const menu = document.getElementById("filterMenu");
+
+  if (menu.style.display === "block") {
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "block";
+  }
+}
+</script>
+
+
+
+</body>
+</html>

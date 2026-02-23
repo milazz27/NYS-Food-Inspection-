@@ -6,7 +6,7 @@ FROM
     frequencies fr 
 WHERE
     f.fid = fr.fid
-    and lower(f.fullname) like '%kebab%'
+    and lower(f.fullname) like '%jail%'
 ;
 
 SELECT
@@ -14,5 +14,5 @@ SELECT
 FROM
     violation_details d
 WHERE
-    d.fid = 'aedf63d4-fce1-4839-9636-6fd535deb9b8'
+    d.fid = 'd1c58ab6-6170-4188-8068-9611838c8888'
 ;
