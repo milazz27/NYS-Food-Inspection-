@@ -1,0 +1,24 @@
+ Food Service Establishment - Bakery
+ Food Service Establishment - Commissary
+ Food Service Establishment - Delicatessen
+ Food Service Establishment - Food Service Establishment
+ Food Service Establishment - Frozen Desserts
+ Food Service Establishment - Ice Cream Store
+ Food Service Establishment - Restaurant
+ Food Service Establishment - Restaurant/Catering Operation
+ Food Service Establishment - Tavern
+ Institutional Food Service - Adult Feeding (Non-SOFA)
+ Institutional Food Service - Children's Camp Food Service
+ Institutional Food Service - Children's Camp\State Education Food Service
+ Institutional Food Service - College Food Service
+ Institutional Food Service - Day Care Center Food Service
+ Institutional Food Service - Institution Food Service
+ Institutional Food Service - Nutrition for the Indigent
+ Institutional Food Service - Religious, Charitable, Fraternal Organization
+ Institutional Food Service - School K-12 Food Service
+ SED Summer Feeding Prog. - SED Food Preparation Site
+ SED Summer Feeding Prog. - SED Satellite Feeding Site
+ SED Summer Feeding Prog. - SED Satellite/Preparation Site
+ SED Summer Feeding Prog. - SED Self Preparation Feeding Site
+ SOFA Food Service - SOFA Prep Site-State Office for the Aging
+ SOFA Food Service - SOFA Satellite Site -State Office for the Aging
